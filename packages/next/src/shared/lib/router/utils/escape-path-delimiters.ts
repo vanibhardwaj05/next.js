@@ -3,6 +3,13 @@ export default function escapePathDelimiters(
   segment: string,
   escapeEncoded?: boolean
 ): string {
+  if (typeof segment !== 'string') {
+    throw new TypeError(
+      `A required parameter was not provided as a string in getStaticPaths. Received ${typeof segment} (${JSON.stringify(
+        segment
+      )})`
+    )
+  }
   return segment.replace(
     new RegExp(`([/#?\\\\]${escapeEncoded ? '|%(2f|23|3f|5c)' : ''})`, 'gi'),
     (char: string) => encodeURIComponent(char)
